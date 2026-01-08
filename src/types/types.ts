@@ -9,4 +9,6 @@ export interface Product {
       rate: number;
       count: number;
     };
-  }
+}
+  
+export type Category = string;
