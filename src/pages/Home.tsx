@@ -47,6 +47,7 @@ const Home: React.FC = () => {
         onChange={(e) =>
           dispatch({ type: "SET_SELECTED_CATEGORY", payload: e.target.value })
         }
+        value={selectedCategory}
       >
         <option value="">All Categories</option>
         {categories?.data.map((category: Category) => (
@@ -55,6 +56,7 @@ const Home: React.FC = () => {
           </option>
         ))}
       </select>
+      <button onClick={() => dispatch({ type: "SET_SELECTED_CATEGORY", payload: "" })}>Clear Filter</button>
       <button onClick={() => navigate("/profile")}>Go to Profile Page</button>
       {isLoading && <h1>Loading products...</h1>}
       <div className="d-flex flex-wrap gap-4 justify-content-center">
