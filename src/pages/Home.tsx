@@ -10,16 +10,18 @@ const Home: React.FC = () => {
   const navigate = useNavigate();
   const { products, dispatch } = useProductContext();
 
-  const { data: productsData, isLoading, error } = useQuery<Product[], Error>({
+  const {
+    data: productsData,
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ["products"],
     queryFn: fetchProducts,
   });
 
   useEffect(() => {
-    if (!productsData) {
-      return;
-    }
-    dispatch({ type: "SET_PRODUCTS", payload: productsData });
+    if (productsData)
+      dispatch({ type: "SET_PRODUCTS", payload: productsData.data });
   }, [dispatch, productsData]);
 
   // useEffect(() => {
@@ -33,12 +35,11 @@ const Home: React.FC = () => {
 
   return (
     <div>
+      {isLoading && <h1>Loading products...</h1>}
       <button onClick={() => navigate("/profile")}>Go to Profile Page</button>
-      {isLoading && <p>Loading products...</p>}
-      {error && <p>Failed to load products: {error.message}</p>}
       <div className="d-flex flex-wrap gap-4 justify-content-center">
         {products.map((product: Product) => (
-          <ProductCard key={product.id} product={product} />
+          <ProductCard product={product} key={product.id} />
         ))}
       </div>
     </div>

@@ -1,16 +1,12 @@
-import axios from "axios";
+import axios, { type AxiosResponse } from "axios";
 import type { Product, Category } from "../types/types";
 
 const apiClient = axios.create({
   baseURL: "https://fakestoreapi.com",
 });
 
-export const fetchProducts = async (): Promise<Product[]> => {
-  const response = await apiClient.get<Product[]>("/products");
-  return response.data;
-};
+export const fetchProducts = (): Promise<AxiosResponse<Product[]>> =>
+  apiClient.get<Product[]>("/products");
 
-export const fetchCategories = async (): Promise<Category[]> => {
-  const response = await apiClient.get<Category[]>("/products/categories");
-  return response.data;
-};
+export const fetchCategories = (): Promise<AxiosResponse<Category[]>> =>
+  apiClient.get<Category[]>("/products/categories");
