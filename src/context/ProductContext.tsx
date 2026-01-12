@@ -1,5 +1,5 @@
 import { createContext, useContext, useReducer } from "react";
-import type { Dispatch, ReactNode } from "react";
+// import type { Dispatch, ReactNode } from "react";
 import type { Product } from "../types/types";
 
 // Define action types
@@ -7,10 +7,10 @@ import type { Product } from "../types/types";
 type ProductAction =
   | { type: "SET_PRODUCTS"; payload: Product[] }
   | { type: "SET_SELECTED_CATEGORY"; payload: string };
-  
+
 interface ProductState {
   products: Product[];
-  selectedCategory: string; 
+  selectedCategory: string;
 }
 
 // Initial state
@@ -20,7 +20,7 @@ const initialState: ProductState = {
   selectedCategory: "",
 };
 
-// Reducer function to manage state updates based on dispatched actions 
+// Reducer function to manage state updates based on dispatched actions
 const productReducer = (
   state: ProductState,
   action: ProductAction
@@ -47,7 +47,7 @@ const ProductContext = createContext<ProductContextType | undefined>(undefined);
 // Provider component to wrap the app and provide state
 interface ProductProviderProps {
   children: ReactNode;
-} 
+}
 
 export const ProductProvider: React.FC<ProductProviderProps> = ({
   children,
