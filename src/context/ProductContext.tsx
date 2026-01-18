@@ -1,5 +1,5 @@
 import { createContext, useContext, useReducer } from "react";
-// import type { Dispatch, ReactNode } from "react";
+import type { Dispatch, ReactNode } from "react";
 import type { Product } from "../types/types";
 
 // Define action types
@@ -49,9 +49,7 @@ interface ProductProviderProps {
   children: ReactNode;
 }
 
-export const ProductProvider: React.FC<ProductProviderProps> = ({
-  children,
-}) => {
+export const ProductProvider = ({ children }: ProductProviderProps) => {
   const [state, dispatch] = useReducer(productReducer, initialState);
 
   return (

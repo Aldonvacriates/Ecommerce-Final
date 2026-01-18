@@ -13,7 +13,6 @@ const Home: React.FC = () => {
   const {
     data: productsData,
     isLoading,
-    error,
   } = useQuery({
     queryKey: ["products"],
     queryFn: fetchProducts,
