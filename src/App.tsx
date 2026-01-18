@@ -9,6 +9,8 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Cart from "./pages/Cart";
 import Logout from "./pages/Logout";
+import Navbar from "./commponents/Navbar/Navbar";
+
 
 function App() {
   const client = new QueryClient();
@@ -16,16 +18,17 @@ function App() {
     <QueryClientProvider client={client}>
       <ProductProvider>
         <AuthProvider>
-        <BrowserRouter>
-          <Routes>
+          <BrowserRouter>
+            <Navbar />
+            <Routes>
               <Route path="/" element={<Home />} />
-            <Route path="/profile" element={<Profile />} />
+              <Route path="/profile" element={<Profile />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />
               <Route path="/logout" element={<Logout />} />
-          </Routes>
-        </BrowserRouter>
+            </Routes>
+          </BrowserRouter>
         </AuthProvider>
       </ProductProvider>
     </QueryClientProvider>
