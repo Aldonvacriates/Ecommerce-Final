@@ -1,0 +1,73 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600&display=swap");
+
+:root {
+  --card-bg: rgba(13, 20, 36, 0.92);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --card-text: #e2e8f0;
+  --card-muted: #9fb1cc;
+  --card-accent: #38bdf8;
+  --card-accent-2: #60a5fa;
+  --card-shadow: rgba(5, 12, 26, 0.35);
+}
+
+.product-card {
+  display: grid;
+  gap: 10px;
+  padding: 18px;
+  background: linear-gradient(145deg, rgba(13, 20, 36, 0.96), rgba(8, 14, 26, 0.9));
+  border-radius: 18px;
+  border: 1px solid var(--card-border);
+  box-shadow: 0 18px 40px var(--card-shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  color: var(--card-text);
+  font-family: "Space Grotesk", "Sora", sans-serif;
+}
+
+.product-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(56, 189, 248, 0.3);
+  box-shadow: 0 22px 48px rgba(5, 12, 26, 0.45);
+}
+
+.product-card__title {
+  font-size: 17px;
+  font-weight: 700;
+  margin: 0;
+  color: #f1f5f9;
+  letter-spacing: -0.2px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.product-card__image {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  justify-self: center;
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.35));
+}
+
+.product-card__price {
+  margin: 0;
+  font-weight: 700;
+  color: var(--card-accent);
+}
+
+.product-card__category {
+  margin: 0;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  color: var(--card-muted);
+}
+
+.product-card__description {
+  margin: 0;
+  color: #cbd5e1;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

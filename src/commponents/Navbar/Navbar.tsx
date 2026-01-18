@@ -1,24 +1,48 @@
 import { useAuth } from '../../context/AuthContext';
 import { Link } from 'react-router-dom';
+import './Navbar.css';
 
 const Navbar = () => {
   const { user } = useAuth();
   return (
-    <div>
-      <Link to="/">Home</Link>
-      <Link to="/cart">Cart</Link>
-      {user ? (
-        <>
-          <Link to="/profile">Profile</Link>
-          <Link to="/logout">Logout</Link>
-        </>
-      ) : (
-        <>
-          <Link to="/register">Register</Link>
-          <Link to="/login">Login</Link>
-        </>
-      )}
-    </div>
+    <header className="nav-shell">
+      <div className="nav-inner">
+        <Link to="/" className="nav-logo">
+          Aldo Website
+        </Link>
+
+        <nav className="nav-links" aria-label="Main navigation">
+          <Link className="nav-link" to="/">
+            Home
+          </Link>
+          <Link className="nav-link" to="/cart">
+            Cart
+          </Link>
+        </nav>
+
+        <div className="nav-actions">
+          {user ? (
+            <>
+              <Link className="nav-ghost" to="/profile">
+                Profile
+              </Link>
+              <Link className="nav-pill" to="/logout">
+                Logout
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link className="nav-ghost" to="/register">
+                Register
+              </Link>
+              <Link className="nav-pill" to="/login">
+                Login
+              </Link>
+            </>
+          )}
+        </div>
+      </div>
+    </header>
   );
 };
 export default Navbar;
