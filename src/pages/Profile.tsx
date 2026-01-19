@@ -5,12 +5,13 @@ import styles from "../styles/auth-styles";
 import { deleteUser, updateProfile } from "firebase/auth";
 import { auth } from "../lib/firebase/firebase";
 import { useMediaQuery } from "../hooks/useMediaQuery";
-import type { CSSProperties } from "react";
+import { getAuthLayoutStyles } from "../styles/auth-responsive";
 
 const Profile = () => {
   const navigate = useNavigate();
   const { user, setUser } = useAuth();
   const isNarrow = useMediaQuery("(max-width: 640px)");
+  const { page, card, hero, actions, buttonNarrow, buttonDesktop } = getAuthLayoutStyles(isNarrow);
   const [name, setName] = useState(user?.displayName ?? "");
   const [focusKey, setFocusKey] = useState<"name" | null>(null);
   const [loading, setLoading] = useState(false);
@@ -103,96 +104,35 @@ const Profile = () => {
     ...(focusKey === "name" ? styles.inputFocus : {}),
   };
 
-  const pageStyle: CSSProperties = isNarrow
-    ? { ...styles.page, padding: "32px 14px 48px" }
-    : styles.page;
-  const cardStyle: CSSProperties = isNarrow
-    ? { ...styles.card, gridTemplateColumns: "1fr", padding: "20px 16px 26px", gap: "18px" }
-    : styles.card;
-  const heroStyle: CSSProperties = isNarrow
-    ? { ...styles.hero, textAlign: "center", alignItems: "center" }
-    : styles.hero;
-  const actionsStyle: CSSProperties = isNarrow
-    ? { ...styles.actions, flexDirection: "column", alignItems: "stretch", gap: "10px" }
-    : styles.actions;
-
-  const desktopButtonSizing: CSSProperties = isNarrow
-    ? {}
-    : {
-        flex: "1 1 220px",
-        width: "100%",
-        maxWidth: "260px",
-      };
-
-  const primaryButtonStyle: CSSProperties = {
+  const primaryButtonStyle = {
     ...styles.submit,
     opacity: loading || isDeleting ? 0.8 : 1,
     cursor: loading || isDeleting ? "not-allowed" : "pointer",
-    ...(isNarrow
-      ? {
-          width: "100%",
-          minWidth: "0",
-          maxWidth: "100%",
-          alignSelf: "stretch",
-          padding: "5px 8px",
-          borderRadius: "12px",
-          fontSize: "14px",
-        }
-      : {}),
-    ...desktopButtonSizing,
+    ...buttonNarrow,
+    ...buttonDesktop,
   };
 
-  const signOutStyle: CSSProperties = {
+  const signOutStyle = {
     ...styles.ghostButton,
-    ...(isNarrow
-      ? {
-          width: "100%",
-          minWidth: "0",
-          maxWidth: "100%",
-          alignSelf: "stretch",
-          padding: "5px 8px",
-          borderRadius: "12px",
-          fontSize: "14px",
-        }
-      : {}),
-    ...desktopButtonSizing,
+    ...buttonNarrow,
+    ...buttonDesktop,
   };
 
-  const deleteStyle: CSSProperties = {
+  const deleteStyle = {
     ...styles.ghostButton,
     borderColor: "rgba(239, 68, 68, 0.35)",
     color: "#fecdd3",
     background: "rgba(239, 68, 68, 0.08)",
     opacity: isDeleting || loading ? 0.8 : 1,
     cursor: isDeleting || loading ? "not-allowed" : "pointer",
-    ...(isNarrow
-      ? {
-          width: "100%",
-          minWidth: "0",
-          maxWidth: "100%",
-          alignSelf: "stretch",
-          padding: "5px 8px",
-          borderRadius: "12px",
-          fontSize: "14px",
-        }
-      : {}),
-    ...desktopButtonSizing,
+    ...buttonNarrow,
+    ...buttonDesktop,
   };
 
-  const backStyle: CSSProperties = {
+  const backStyle = {
     ...styles.submit,
-    ...(isNarrow
-      ? {
-          width: "100%",
-          minWidth: "0",
-          maxWidth: "100%",
-          alignSelf: "stretch",
-          padding: "5px 8px",
-          borderRadius: "12px",
-          fontSize: "14px",
-        }
-      : {}),
-    ...desktopButtonSizing,
+    ...buttonNarrow,
+    ...buttonDesktop,
   };
 
   const handleCloseModal = () => {
@@ -201,12 +141,12 @@ const Profile = () => {
   };
 
   return (
-    <div style={pageStyle}>
-      <div style={cardStyle}>
+    <div style={page}>
+      <div style={card}>
         <span style={styles.orb} aria-hidden />
         <span style={styles.orbAlt} aria-hidden />
 
-        <div style={heroStyle}>
+        <div style={hero}>
           <span style={styles.eyebrow}>Your account</span>
           <h1 style={styles.title}>Profile overview</h1>
           <p style={styles.subtitle}>
@@ -256,7 +196,7 @@ const Profile = () => {
           {statCard("Created", user?.metadata?.creationTime || "—")}
           {statCard("Last login", user?.metadata?.lastSignInTime || "-")}
 
-          <div style={actionsStyle}>
+          <div style={actions}>
             <button
               type="submit"
               disabled={loading || isDeleting}

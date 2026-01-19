@@ -1,55 +1,61 @@
-# Ecommerce Front-End (React + Vite)
+# Ecommerce Front-End (React + Vite + Firebase)
 
-A lightweight ecommerce UI built with React, TypeScript, and Vite. The home page pulls live products from Fake Store API, presents them in responsive cards with pricing, category, description, and star ratings, and includes a simple profile route for future account features.
+Modern ecommerce UI built with React, TypeScript, and Vite. Products come from Fake Store API, and authentication uses Firebase (email/password) with Login, Register, Profile, and Logout flows.
 
 ## Features
-- Live product feed from `https://fakestoreapi.com/products` rendered with typed Product models.
-- Responsive product cards (Bootstrap) showing price, category, description, and read-only ratings via `@smastrom/react-rating`.
-- Client-side routing with React Router (`/` for the catalog, `/profile` placeholder for user info).
-- Vite-powered DX with hot reload, TypeScript support, and lint/build scripts ready for deployment.
+- Product catalog from `https://fakestoreapi.com` with category filter and responsive cards.
+- Firebase Auth (email/password): register, login, logout, profile overview, display-name update, account deletion with confirmation.
+- Profile modals for delete confirmation/success; friendly auth error messaging.
+- React Router v7 routing; contexts for auth and products; inline glassmorphism styling.
 
-## Getting Started
+## Tech Stack
+- React 19, TypeScript, Vite
+- Firebase Auth, Axios, React Router v7, React Query, Bootstrap
+
+## Quick Start
 Prerequisites: Node.js 18+ and npm.
 
-Install dependencies:
 ```bash
 npm install
-```
-
-Start the dev server:
-```bash
 npm run dev
 ```
-Vite will print a local URL (usually http://localhost:5173) where you can interact with the catalog.
+Open the URL Vite prints (usually http://localhost:5173).
 
-## Available Scripts
-- `npm run dev` – start the Vite dev server with HMR.
-- `npm run build` – type-check and create a production build in `dist`.
-- `npm run preview` – serve the production build locally.
-- `npm run lint` – run ESLint over the project.
+## Scripts
+- `npm run dev` – start dev server with HMR
+- `npm run build` – type-check then build to `dist`
+- `npm run preview` – serve the production build locally
+- `npm run lint` – run ESLint
 
-## How It Works
-- `src/pages/Home.tsx` fetches products on load and renders `ProductCard` for each result.
-- `src/commponents/ProductCard.tsx` displays product details with image, price, uppercase category, rating widget, and description.
-- `src/App.tsx` wires routing for the catalog and the placeholder profile page.
-- `src/types/types.ts` defines the Product interface used across the app.
+## Key Files
+- `src/pages/Home/Home.tsx` – product fetch + category filter UI
+- `src/pages/Login.tsx`, `src/pages/Register.tsx`, `src/pages/Profile.tsx`, `src/pages/Logout.tsx` – auth flows and profile management
+- `src/context/AuthContext.tsx` – Firebase auth state
+- `src/context/ProductContext.tsx` – product state and filters
+- `src/api/api.ts` – Fake Store API client
+- `src/lib/firebase/firebase.ts` – Firebase app/auth setup (update keys if you use your own project)
+- `src/styles/auth-styles.ts`, `src/pages/Home/Home.css` – UI styling
 
-## Configuration Notes
-- API endpoint: update the URL in `src/pages/Home.tsx` if you want to point to a different product feed or your own backend.
-- Styling: the layout relies on Bootstrap utility classes; add global styles in `src/index.css` as needed.
+## Firebase Configuration
+Firebase credentials live in `src/lib/firebase/firebase.ts`. Replace with your own project values if needed; for production, move secrets to environment variables and avoid committing them.
 
-## Project Structure
+## Project Structure (excerpt)
 ```
 src/
-  App.tsx               # Router and page registration
-  main.tsx              # App bootstrap and global styles
-  pages/                # Page-level views (Home, Profile)
-  commponents/          # Reusable UI pieces (ProductCard)
-  types/                # Shared TypeScript interfaces
-public/                 # Static assets served as-is
+  api/
+  commponents/          # shared UI (e.g., Navbar, ProductCard)
+  context/
+  hooks/
+  lib/firebase/
+  pages/
+    Home/
+    Login.tsx
+    Register.tsx
+    Profile.tsx
+    Logout.tsx
+  styles/
 ```
 
-## Next Steps
-- Replace the Profile placeholder with real account data, orders, or saved items.
-- Add filtering or category navigation on the catalog page.
-- Connect to your own API for authenticated carts and checkout.
+## Notes
+- Build may warn about large chunks; consider code-splitting if desired.
+- Account deletion requires a recent login per Firebase rules; re-authenticate if prompted.
