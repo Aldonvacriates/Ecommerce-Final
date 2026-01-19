@@ -3,7 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import type { FormEvent, ChangeEvent, FocusEvent } from "react";
 import { auth } from "../lib/firebase/firebase";
+import { useAuth } from "../context/AuthContext";
 import styles from "../styles/auth-styles";
+// import { useAuth } from '../contexts/AuthContext';
 
 type FormState = {
   email: string;
@@ -14,8 +16,12 @@ type FocusKey = keyof FormState | null;
 
 const Login = () => {
   const navigate = useNavigate();
-  // Core form state + UI affordances for focus/hover/loading/error
-  const [form, setForm] = useState<FormState>({ email: "", password: "" });
+  const { user, setUser } = useAuth();
+  // Core form state + UI affordances for focus/hover/loading/error; seed email if user is already known
+  const [form, setForm] = useState<FormState>(() => ({
+    email: user?.email ?? "",
+    password: "",
+  }));
   const [focusKey, setFocusKey] = useState<FocusKey>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -48,7 +54,8 @@ const Login = () => {
 
     try {
       setLoading(true);
-      await signInWithEmailAndPassword(auth, form.email, form.password);
+      const credential = await signInWithEmailAndPassword(auth, form.email, form.password);
+      setUser(credential.user);
       navigate("/");
     } catch (err) {
       const message =
@@ -71,6 +78,9 @@ const Login = () => {
           <p style={styles.subtitle}>
             Access your saved cart, orders, and personalized picks. Two fields and you’re in.
           </p>
+          {user?.email && (
+            <p style={styles.hint}>You’re currently signed in as {user.email}.</p>
+          )}
 
           <div style={styles.featureCard}>
             <div style={styles.badge}>Trusted sign-in</div>
