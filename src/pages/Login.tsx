@@ -1,11 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import type { FormEvent, ChangeEvent, FocusEvent } from "react";
 import { auth } from "../lib/firebase/firebase";
 import { useAuth } from "../context/AuthContext";
 import styles from "../styles/auth-styles";
-// import { useAuth } from '../contexts/AuthContext';
 
 type FormState = {
   email: string;
@@ -27,6 +26,19 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [isHoveringSubmit, setIsHoveringSubmit] = useState(false);
   const [isHoveringGhost, setIsHoveringGhost] = useState(false);
+
+  const inputStyle = (key: keyof FormState) => ({
+    ...styles.input,
+    ...(focusKey === key ? styles.inputFocus : {}),
+  });
+
+  // If a user is already signed in, redirect them away from the login page and keep form email in sync
+  useEffect(() => {
+    if (user) {
+      navigate("/profile", { replace: true });
+      setForm((prev) => ({ ...prev, email: user.email ?? prev.email }));
+    }
+  }, [user, navigate]);
 
   // Keep inputs controlled and remember which field has focus for styling
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -56,7 +68,7 @@ const Login = () => {
       setLoading(true);
       const credential = await signInWithEmailAndPassword(auth, form.email, form.password);
       setUser(credential.user);
-      navigate("/");
+      navigate("/profile");
     } catch (err) {
       const message =
         (err as { message?: string })?.message || "We couldn't sign you in. Please try again.";
@@ -64,6 +76,18 @@ const Login = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const submitStyle = {
+    ...styles.submit,
+    ...(isHoveringSubmit ? styles.submitHover : {}),
+    opacity: loading ? 0.8 : 1,
+    cursor: loading ? "not-allowed" : "pointer",
+  };
+
+  const ghostStyle = {
+    ...styles.ghostButton,
+    ...(isHoveringGhost ? styles.ghostButtonHover : {}),
   };
 
   return (
@@ -107,7 +131,7 @@ const Login = () => {
               onChange={onChange}
               onFocus={onFocus}
               onBlur={onBlur}
-              style={{ ...styles.input, ...(focusKey === "email" ? styles.inputFocus : {}) }}
+              style={inputStyle("email")}
               placeholder="you@example.com"
             />
           </div>
@@ -126,7 +150,7 @@ const Login = () => {
               onChange={onChange}
               onFocus={onFocus}
               onBlur={onBlur}
-              style={{ ...styles.input, ...(focusKey === "password" ? styles.inputFocus : {}) }}
+              style={inputStyle("password")}
               placeholder="Your password"
             />
             <span style={styles.hint}>
@@ -149,12 +173,7 @@ const Login = () => {
             <button
               type="submit"
               disabled={loading}
-              style={{
-                ...styles.submit,
-                ...(isHoveringSubmit ? styles.submitHover : {}),
-                opacity: loading ? 0.8 : 1,
-                cursor: loading ? "not-allowed" : "pointer",
-              }}
+              style={submitStyle}
               onMouseEnter={() => setIsHoveringSubmit(true)}
               onMouseLeave={() => setIsHoveringSubmit(false)}
             >
@@ -163,10 +182,7 @@ const Login = () => {
 
             <button
               type="button"
-              style={{
-                ...styles.ghostButton,
-                ...(isHoveringGhost ? styles.ghostButtonHover : {}),
-              }}
+              style={ghostStyle}
               onMouseEnter={() => setIsHoveringGhost(true)}
               onMouseLeave={() => setIsHoveringGhost(false)}
               onClick={() => navigate("/register")}
