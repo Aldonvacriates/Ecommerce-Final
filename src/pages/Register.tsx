@@ -62,7 +62,7 @@ const Register = () => {
       setLoading(true);
       const credential = await createUserWithEmailAndPassword(auth, form.email, form.password);
       await updateProfile(credential.user, { displayName: form.name.trim() });
-      navigate("/");
+      navigate("/profile");
     } catch (err) {
       const message =
         (err as { message?: string })?.message || "Something went wrong while creating your account.";
