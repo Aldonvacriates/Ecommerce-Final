@@ -116,6 +116,14 @@ const Profile = () => {
     ? { ...styles.actions, flexDirection: "column", alignItems: "stretch", gap: "10px" }
     : styles.actions;
 
+  const desktopButtonSizing: CSSProperties = isNarrow
+    ? {}
+    : {
+        flex: "1 1 220px",
+        width: "100%",
+        maxWidth: "260px",
+      };
+
   const primaryButtonStyle: CSSProperties = {
     ...styles.submit,
     opacity: loading || isDeleting ? 0.8 : 1,
@@ -131,6 +139,7 @@ const Profile = () => {
           fontSize: "14px",
         }
       : {}),
+    ...desktopButtonSizing,
   };
 
   const signOutStyle: CSSProperties = {
@@ -146,6 +155,7 @@ const Profile = () => {
           fontSize: "14px",
         }
       : {}),
+    ...desktopButtonSizing,
   };
 
   const deleteStyle: CSSProperties = {
@@ -166,6 +176,7 @@ const Profile = () => {
           fontSize: "14px",
         }
       : {}),
+    ...desktopButtonSizing,
   };
 
   const backStyle: CSSProperties = {
@@ -181,6 +192,7 @@ const Profile = () => {
           fontSize: "14px",
         }
       : {}),
+    ...desktopButtonSizing,
   };
 
   const handleCloseModal = () => {
