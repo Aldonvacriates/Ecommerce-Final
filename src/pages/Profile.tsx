@@ -17,6 +17,7 @@ const Profile = () => {
   const [isDeleting, setIsDeleting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
   const [deleteSuccessModalOpen, setDeleteSuccessModalOpen] = useState(false);
 
   // Redirect guests to login and avoid flashing a broken profile view
@@ -61,25 +62,29 @@ const Profile = () => {
     }
   };
 
-  const handleDeleteAccount = async () => {
+  const handleDeleteAccount = () => {
     setError(null);
     setSuccess(null);
+    setConfirmDeleteOpen(true);
+  };
 
-    const confirmed = window.confirm("Delete your account permanently? This cannot be undone.");
-    if (!confirmed) return;
+  const performDeleteAccount = async () => {
+    setError(null);
+    setSuccess(null);
 
     const currentUser = auth.currentUser;
     if (!currentUser) {
       setError("You need to be signed in to delete your account.");
+      setConfirmDeleteOpen(false);
       return;
     }
 
     try {
       setIsDeleting(true);
-      // Ensure we have a fresh auth state before attempting deletion
       await currentUser.reload();
       await deleteUser(currentUser);
       setUser(null);
+      setConfirmDeleteOpen(false);
       setDeleteSuccessModalOpen(true);
     } catch (err) {
       const errorData = err as { code?: string; message?: string };
@@ -288,6 +293,60 @@ const Profile = () => {
           </div>
         </form>
       </div>
+      {confirmDeleteOpen && (
+        <div style={styles.modalBackdrop} role="dialog" aria-modal="true" aria-labelledby="delete-confirm-title">
+          <div
+            style={{
+              ...styles.modalCard,
+              border: "1px solid rgba(239, 68, 68, 0.4)",
+              background: "linear-gradient(145deg, rgba(36, 12, 12, 0.95), rgba(24, 10, 10, 0.92))",
+            }}
+          >
+            <span
+              style={{
+                ...styles.modalAccent,
+                borderColor: "rgba(239, 68, 68, 0.4)",
+                background: "linear-gradient(120deg, rgba(239, 68, 68, 0.2), rgba(248, 113, 113, 0.16))",
+              }}
+            >
+              Delete account
+            </span>
+            <h2 id="delete-confirm-title" style={{ ...styles.modalTitle, color: "#fecdd3" }}>
+              Delete your account permanently?
+            </h2>
+            <p style={{ ...styles.modalText, color: "#ffe4e6" }}>
+              This cannot be undone. All saved data tied to this profile will be removed. Do you still want to
+              continue?
+            </p>
+            <div style={styles.modalActions}>
+              <button
+                type="button"
+                style={styles.ghostButton}
+                disabled={isDeleting}
+                onClick={() => setConfirmDeleteOpen(false)}
+              >
+                <span style={styles.buttonLabel}>Cancel</span>
+              </button>
+              <button
+                type="button"
+                style={{
+                  ...styles.submit,
+                  borderColor: "rgba(239, 68, 68, 0.5)",
+                  background: "linear-gradient(120deg, #ef4444 0%, #f87171 100%)",
+                  color: "#0b0b12",
+                  boxShadow: "0 10px 28px rgba(239, 68, 68, 0.35)",
+                  opacity: isDeleting ? 0.8 : 1,
+                  cursor: isDeleting ? "not-allowed" : "pointer",
+                }}
+                disabled={isDeleting}
+                onClick={performDeleteAccount}
+              >
+                <span style={styles.buttonLabel}>{isDeleting ? "Deleting..." : "Yes, delete it"}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       {deleteSuccessModalOpen && (
         <div style={styles.modalBackdrop} role="dialog" aria-modal="true" aria-labelledby="delete-success-title">
           <div style={styles.modalCard}>
