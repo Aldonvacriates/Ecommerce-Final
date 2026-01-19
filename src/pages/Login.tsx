@@ -102,13 +102,33 @@ const Login = () => {
     ...(isHoveringSubmit ? styles.submitHover : {}),
     opacity: loading ? 0.8 : 1,
     cursor: loading ? "not-allowed" : "pointer",
-    ...(isNarrow ? { width: "100%" } : {}),
+    ...(isNarrow
+      ? {
+          width: "100%",
+          minWidth: "0",
+          maxWidth: "100%",
+          alignSelf: "stretch",
+          padding: "11px 16px",
+          borderRadius: "12px",
+          fontSize: "14px",
+        }
+      : {}),
   };
 
   const ghostStyle = {
     ...styles.ghostButton,
     ...(isHoveringGhost ? styles.ghostButtonHover : {}),
-    ...(isNarrow ? { width: "100%" } : {}),
+    ...(isNarrow
+      ? {
+          width: "100%",
+          minWidth: "0",
+          maxWidth: "100%",
+          alignSelf: "stretch",
+          padding: "11px 16px",
+          borderRadius: "12px",
+          fontSize: "14px",
+        }
+      : {}),
   };
 
   const pageStyle: CSSProperties = isNarrow

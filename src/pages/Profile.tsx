@@ -115,12 +115,32 @@ const Profile = () => {
     ...styles.submit,
     opacity: loading || isDeleting ? 0.8 : 1,
     cursor: loading || isDeleting ? "not-allowed" : "pointer",
-    ...(isNarrow ? { width: "100%" } : {}),
+    ...(isNarrow
+      ? {
+          width: "100%",
+          minWidth: "0",
+          maxWidth: "100%",
+          alignSelf: "stretch",
+          padding: "5px 8px",
+          borderRadius: "12px",
+          fontSize: "14px",
+        }
+      : {}),
   };
 
   const signOutStyle: CSSProperties = {
     ...styles.ghostButton,
-    ...(isNarrow ? { width: "100%" } : {}),
+    ...(isNarrow
+      ? {
+          width: "100%",
+          minWidth: "0",
+          maxWidth: "100%",
+          alignSelf: "stretch",
+          padding: "5px 8px",
+          borderRadius: "12px",
+          fontSize: "14px",
+        }
+      : {}),
   };
 
   const deleteStyle: CSSProperties = {
@@ -130,12 +150,32 @@ const Profile = () => {
     background: "rgba(239, 68, 68, 0.08)",
     opacity: isDeleting || loading ? 0.8 : 1,
     cursor: isDeleting || loading ? "not-allowed" : "pointer",
-    ...(isNarrow ? { width: "100%" } : {}),
+    ...(isNarrow
+      ? {
+          width: "100%",
+          minWidth: "0",
+          maxWidth: "100%",
+          alignSelf: "stretch",
+          padding: "5px 8px",
+          borderRadius: "12px",
+          fontSize: "14px",
+        }
+      : {}),
   };
 
   const backStyle: CSSProperties = {
     ...styles.submit,
-    ...(isNarrow ? { width: "100%" } : {}),
+    ...(isNarrow
+      ? {
+          width: "100%",
+          minWidth: "0",
+          maxWidth: "100%",
+          alignSelf: "stretch",
+          padding: "5px 8px",
+          borderRadius: "12px",
+          fontSize: "14px",
+        }
+      : {}),
   };
 
   const handleCloseModal = () => {
