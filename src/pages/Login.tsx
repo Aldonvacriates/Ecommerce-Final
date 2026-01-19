@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import type { FormEvent, ChangeEvent, FocusEvent } from "react";
+import type { CSSProperties } from "react";
 import { auth } from "../lib/firebase/firebase";
 import { useAuth } from "../context/AuthContext";
+import { useMediaQuery } from "../hooks/useMediaQuery";
 import styles from "../styles/auth-styles";
 
 type FormState = {
@@ -16,6 +18,7 @@ type FocusKey = keyof FormState | null;
 const Login = () => {
   const navigate = useNavigate();
   const { user, setUser } = useAuth();
+  const isNarrow = useMediaQuery("(max-width: 640px)");
   // Core form state + UI affordances for focus/hover/loading/error; seed email if user is already known
   const [form, setForm] = useState<FormState>(() => ({
     email: user?.email ?? "",
@@ -23,6 +26,7 @@ const Login = () => {
   }));
   const [focusKey, setFocusKey] = useState<FocusKey>(null);
   const [error, setError] = useState<string | null>(null);
+  const [errorCode, setErrorCode] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [isHoveringSubmit, setIsHoveringSubmit] = useState(false);
   const [isHoveringGhost, setIsHoveringGhost] = useState(false);
@@ -58,6 +62,7 @@ const Login = () => {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError(null);
+    setErrorCode(null);
 
     if (!form.email.trim() || !form.password.trim()) {
       setError("Email and password are required to sign in.");
@@ -70,8 +75,22 @@ const Login = () => {
       setUser(credential.user);
       navigate("/profile");
     } catch (err) {
+      const errorData = err as { code?: string; message?: string };
+      const code = errorData?.code ?? null;
+      setErrorCode(code);
+
+      const friendlyByCode: Record<string, string> = {
+        "auth/user-not-found": "This account doesn't exist. Please register first.",
+        "auth/invalid-credential": "Email or password is incorrect. Please try again.",
+        "auth/invalid-email": "That email looks invalid. Double-check and try again.",
+        "auth/wrong-password": "Email or password is incorrect. Please try again.",
+        "auth/too-many-requests": "Too many attempts. Please wait a moment and try again.",
+      };
+
       const message =
-        (err as { message?: string })?.message || "We couldn't sign you in. Please try again.";
+        (code && friendlyByCode[code]) ||
+        "We couldn't sign you in. Please try again.";
+
       setError(message);
     } finally {
       setLoading(false);
@@ -83,20 +102,35 @@ const Login = () => {
     ...(isHoveringSubmit ? styles.submitHover : {}),
     opacity: loading ? 0.8 : 1,
     cursor: loading ? "not-allowed" : "pointer",
+    ...(isNarrow ? { width: "100%" } : {}),
   };
 
   const ghostStyle = {
     ...styles.ghostButton,
     ...(isHoveringGhost ? styles.ghostButtonHover : {}),
+    ...(isNarrow ? { width: "100%" } : {}),
   };
 
+  const pageStyle: CSSProperties = isNarrow
+    ? { ...styles.page, padding: "32px 14px 48px" }
+    : styles.page;
+  const cardStyle: CSSProperties = isNarrow
+    ? { ...styles.card, gridTemplateColumns: "1fr", padding: "20px 16px 26px", gap: "18px" }
+    : styles.card;
+  const heroStyle: CSSProperties = isNarrow
+    ? { ...styles.hero, textAlign: "center", alignItems: "center" }
+    : styles.hero;
+  const actionsStyle: CSSProperties = isNarrow
+    ? { ...styles.actions, flexDirection: "column", alignItems: "stretch", gap: "10px" }
+    : styles.actions;
+
   return (
-    <div style={styles.page}>
-      <div style={styles.card}>
+    <div style={pageStyle}>
+      <div style={cardStyle}>
         <span style={styles.orb} aria-hidden />
         <span style={styles.orbAlt} aria-hidden />
 
-        <div style={styles.hero}>
+        <div style={heroStyle}>
           <span style={styles.eyebrow}>Welcome back</span>
           <h1 style={styles.title}>Sign in to continue</h1>
           <p style={styles.subtitle}>
@@ -166,10 +200,19 @@ const Login = () => {
                 Something went wrong
               </div>
               <p style={styles.featureText}>{error}</p>
+              {errorCode === "auth/user-not-found" && (
+                <button
+                  type="button"
+                  style={{ ...styles.submit, width: "100%" }}
+                  onClick={() => navigate("/register")}
+                >
+                  <span style={styles.buttonLabel}>Go to registration</span>
+                </button>
+              )}
             </div>
           )}
 
-          <div style={styles.actions}>
+          <div style={actionsStyle}>
             <button
               type="submit"
               disabled={loading}
@@ -177,7 +220,9 @@ const Login = () => {
               onMouseEnter={() => setIsHoveringSubmit(true)}
               onMouseLeave={() => setIsHoveringSubmit(false)}
             >
-              {loading ? "Signing you in..." : "Sign in"}
+              <span style={styles.buttonLabel}>
+                {loading ? "Signing you in..." : "Sign in"}
+              </span>
             </button>
 
             <button
@@ -187,7 +232,7 @@ const Login = () => {
               onMouseLeave={() => setIsHoveringGhost(false)}
               onClick={() => navigate("/register")}
             >
-              New here? Create account
+              <span style={styles.buttonLabel}>New here? Create account</span>
             </button>
           </div>
 
