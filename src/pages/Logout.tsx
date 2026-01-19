@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../lib/firebase/firebase";
+import { useMediaQuery } from "../hooks/useMediaQuery";
+import { getAuthLayoutStyles } from "../styles/auth-responsive";
 import styles from "../styles/auth-styles";
 
 const Logout = () => {
@@ -10,6 +12,8 @@ const Logout = () => {
   const [error, setError] = useState<string | null>(null);
   const [isHoveringSubmit, setIsHoveringSubmit] = useState(false);
   const [isHoveringGhost, setIsHoveringGhost] = useState(false);
+  const isNarrow = useMediaQuery("(max-width: 640px)");
+  const { page, card, hero, actions, buttonNarrow, buttonDesktop } = getAuthLayoutStyles(isNarrow);
 
   const handleLogout = async () => {
     setError(null);
@@ -26,16 +30,16 @@ const Logout = () => {
   };
 
   return (
-    <div style={styles.page}>
-      <div style={styles.card}>
+    <div style={page}>
+      <div style={card}>
         <span style={styles.orb} aria-hidden />
         <span style={styles.orbAlt} aria-hidden />
 
-        <div style={styles.hero}>
+        <div style={hero}>
           <span style={styles.eyebrow}>Wrap it up</span>
           <h1 style={styles.title}>Ready to sign out?</h1>
           <p style={styles.subtitle}>
-            We’ll keep your cart and preferences saved to your account. You can jump back in anytime.
+            We'll keep your cart and preferences saved to your account. You can jump back in anytime.
           </p>
 
           <div style={styles.featureCard}>
@@ -58,7 +62,7 @@ const Logout = () => {
             </div>
           )}
 
-          <div style={styles.actions}>
+          <div style={actions}>
             <button
               type="button"
               disabled={loading}
@@ -67,22 +71,31 @@ const Logout = () => {
                 ...(isHoveringSubmit ? styles.submitHover : {}),
                 opacity: loading ? 0.8 : 1,
                 cursor: loading ? "not-allowed" : "pointer",
+                ...buttonNarrow,
+                ...buttonDesktop,
               }}
               onMouseEnter={() => setIsHoveringSubmit(true)}
               onMouseLeave={() => setIsHoveringSubmit(false)}
               onClick={handleLogout}
             >
-              {loading ? "Signing you out..." : "Sign out securely"}
+              <span style={styles.buttonLabel}>
+                {loading ? "Signing you out..." : "Sign out securely"}
+              </span>
             </button>
 
             <button
               type="button"
-              style={{ ...styles.ghostButton, ...(isHoveringGhost ? styles.ghostButtonHover : {}) }}
+              style={{
+                ...styles.ghostButton,
+                ...(isHoveringGhost ? styles.ghostButtonHover : {}),
+                ...buttonNarrow,
+                ...buttonDesktop,
+              }}
               onMouseEnter={() => setIsHoveringGhost(true)}
               onMouseLeave={() => setIsHoveringGhost(false)}
               onClick={() => navigate(-1)}
             >
-              Stay logged in
+              <span style={styles.buttonLabel}>Stay logged in</span>
             </button>
           </div>
 
