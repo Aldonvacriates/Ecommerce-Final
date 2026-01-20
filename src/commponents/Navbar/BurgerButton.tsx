@@ -10,6 +10,7 @@ const BurgerButton = forwardRef(function BurgerButton(
   { isOpen, ...rest }: BurgerButtonProps,
   ref: ForwardedRef<HTMLButtonElement>
 ) {
+  // Animated burger icon so the mobile menu state is obvious (X vs stacked lines).
   return (
     <button
       type="button"

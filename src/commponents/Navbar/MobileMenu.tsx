@@ -19,12 +19,14 @@ const focusableSelector =
   'a[href]:not([tabindex="-1"]), button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])';
 
 const MobileMenu = ({ isOpen, menuRef, mainLinks, actionLinks, onNavigate, slideDirection = "top" }: MobileMenuProps) => {
+  // Animate from top or side based on breakpoint; keeps a single overlay component.
   const slideVariants =
     slideDirection === "right"
       ? { initial: { opacity: 0, x: 24 }, animate: { opacity: 1, x: 0 }, exit: { opacity: 0, x: 24 } }
       : { initial: { opacity: 0, y: -16 }, animate: { opacity: 1, y: 0 }, exit: { opacity: 0, y: -16 } };
 
   useEffect(() => {
+    // Focus trap so keyboard users don't tab behind the open sheet.
     if (!isOpen || !menuRef.current) return;
     const focusables = Array.from(menuRef.current.querySelectorAll<HTMLElement>(focusableSelector));
     const first = focusables[0];
@@ -77,9 +79,7 @@ const MobileMenu = ({ isOpen, menuRef, mainLinks, actionLinks, onNavigate, slide
               {mainLinks.map((link) => (
                 <Link key={link.path} to={link.path} className="mobile-link" onClick={onNavigate}>
                   <span>{link.label}</span>
-                  <span aria-hidden="true" className="mobile-link__chevron">
-                    →
-                  </span>
+                  <span aria-hidden="true" className="mobile-link__chevron">{">"}</span>
                 </Link>
               ))}
             </nav>
@@ -101,3 +101,4 @@ const MobileMenu = ({ isOpen, menuRef, mainLinks, actionLinks, onNavigate, slide
 };
 
 export default MobileMenu;
+

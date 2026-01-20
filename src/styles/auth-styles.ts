@@ -2,6 +2,7 @@ import type { CSSProperties } from "react";
 
 type AuthStyleMap = Record<string, CSSProperties>;
 
+// Leaned into a glassy neon palette so the auth screens feel premium without extra assets.
 const palette = {
   bg: "#050a16",
   surface: "rgba(10, 15, 28, 0.92)",
@@ -68,6 +69,7 @@ const styles: AuthStyleMap = {
     display: "grid",
     gap: "clamp(8px, 1.5vw, 12px)",
   },
+  // Grid keeps hero copy + form balanced on wide screens and collapses cleanly on mobile.
   eyebrow: {
     display: "inline-flex",
     alignItems: "center",
@@ -254,6 +256,7 @@ const styles: AuthStyleMap = {
     padding: "16px",
     zIndex: 50,
   },
+  // Modal intentionally flips to a green/red tint to separate critical actions from the blue auth flow.
   modalCard: {
     width: "min(480px, 100%)",
     background:

@@ -1,0 +1,109 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    style="min-height: 100vh; display: grid; place-items: center; padding: clamp(28px, 5vw, 42px) clamp(12px, 4vw, 16px) clamp(48px, 6vw, 64px); color: rgb(231, 236, 247); font-family: "Space Grotesk", "Sora", system-ui, -apple-system, sans-serif;"
+  >
+    <div
+      style="position: relative; width: 100%; max-width: 1080px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: clamp(16px, 2vw, 26px); padding: clamp(20px, 4vw, 32px); background: linear-gradient(145deg, rgba(13, 21, 36, 0.95), rgba(8, 13, 24, 0.9)); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: clamp(18px, 2vw, 26px); box-shadow: 0 22px 58px rgba(5, 10, 20, 0.55), 0 0 0 1px rgba(56, 189, 248, 0.08); overflow: hidden;"
+    >
+      <span
+        aria-hidden="true"
+        style="position: absolute; inset: -60px auto auto -60px; width: 220px; height: 220px; background: radial-gradient(circle at 30% 30%, rgba(96, 165, 250, 0.24), transparent); filter: blur(12px); opacity: 0.65; pointer-events: none;"
+      />
+      <span
+        aria-hidden="true"
+        style="position: absolute; inset: auto -60px -60px auto; width: 200px; height: 200px; background: radial-gradient(circle at 60% 40%, rgba(56, 189, 248, 0.2), transparent); filter: blur(18px); opacity: 0.55; pointer-events: none;"
+      />
+      <div
+        style="position: relative; z-index: 1; display: grid; gap: clamp(8px, 1.5vw, 12px);"
+      >
+        <span
+          style="display: inline-flex; align-items: center; gap: 8px; width: fit-content; padding: 8px 12px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.08); background: rgba(255, 255, 255, 0.05); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: rgb(159, 177, 204); font-weight: 700;"
+        >
+          Wrap it up
+        </span>
+        <h1
+          style="margin: 0px; font-size: clamp(28px, 4vw, 36px); letter-spacing: -0.4px; color: rgb(248, 250, 252);"
+        >
+          Ready to sign out?
+        </h1>
+        <p
+          style="margin: 0px; color: rgb(159, 177, 204); line-height: 1.6; max-width: 480px;"
+        >
+          We'll keep your cart and preferences saved to your account. You can jump back in anytime.
+        </p>
+        <div
+          style="position: relative; z-index: 1; align-self: stretch; padding: 18px 16px; background: rgba(255, 255, 255, 0.03); border-radius: 18px; border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 14px 32px rgba(5, 10, 20, 0.4); display: grid; gap: 10px;"
+        >
+          <div
+            style="display: inline-flex; align-items: center; gap: 8px; padding: 10px 12px; border-radius: 12px; color: rgb(231, 236, 247); background: linear-gradient(120deg, rgba(96, 165, 250, 0.12), rgba(56, 189, 248, 0.08)); border: 1px solid rgba(255, 255, 255, 0.08); font-weight: 700;"
+          >
+            Secure session
+          </div>
+          <h3
+            style="margin: 0px; font-size: 16px; letter-spacing: 0.1px; color: rgb(248, 250, 252);"
+          >
+            What happens next?
+          </h3>
+          <p
+            style="margin: 0px; color: rgb(159, 177, 204); line-height: 1.5;"
+          >
+            We’ll end your session across this device. You can sign back in with the same email and password to pick up where you left off.
+          </p>
+        </div>
+      </div>
+      <div
+        style="position: relative; z-index: 1; display: grid; gap: clamp(12px, 2vw, 16px);"
+      >
+        <div
+          style="display: flex; align-items: center; gap: 12px; margin-top: 4px; flex-wrap: wrap; width: 100%; justify-content: center;"
+        >
+          <button
+            style="display: inline-flex; justify-content: center; align-items: center; gap: 0.35rem; flex: 1 1 220px; min-height: 44px; min-width: 0; padding: 11px 16px; border: 1px solid transparent; border-radius: 14px; background: linear-gradient(120deg, #60a5fa 0%, #38bdf8 100%); color: rgb(4, 16, 31); font-weight: 700; letter-spacing: 0.2px; box-shadow: 0 10px 28px rgba(56, 189, 248, 0.35); cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease; opacity: 1; width: 100%; max-width: 260px;"
+            type="button"
+          >
+            <span
+              style="display: block; white-space: nowrap; overflow-x: auto; text-align: center; width: 100%; scrollbar-width: none; -webkit-overflow-scrolling: touch;"
+            >
+              Sign out securely
+            </span>
+          </button>
+          <button
+            style="display: inline-flex; justify-content: center; align-items: center; gap: 0.35rem; flex: 1 1 220px; min-height: 44px; min-width: 0; padding: 11px 16px; border-radius: 14px; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); color: rgb(231, 236, 247); font-weight: 700; letter-spacing: 0.2px; cursor: pointer; transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease; width: 100%; max-width: 260px;"
+            type="button"
+          >
+            <span
+              style="display: block; white-space: nowrap; overflow-x: auto; text-align: center; width: 100%; scrollbar-width: none; -webkit-overflow-scrolling: touch;"
+            >
+              Stay logged in
+            </span>
+          </button>
+        </div>
+        <div
+          style="text-align: center; margin-top: 8px; color: rgb(159, 177, 204); font-size: 14px;"
+        >
+          Need help? 
+          <a
+            data-discover="true"
+            href="/profile"
+            style="color: rgb(96, 165, 250); font-weight: 700; text-decoration: none;"
+          >
+            Visit support
+          </a>
+           or 
+          <a
+            data-discover="true"
+            href="/"
+            style="color: rgb(96, 165, 250); font-weight: 700; text-decoration: none;"
+          >
+            go back home
+          </a>
+          .
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

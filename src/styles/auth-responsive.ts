@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 import styles from "./auth-styles";
 
+// Quick helper to tweak the auth layout per breakpoint without duplicating the base tokens.
 export const getAuthLayoutStyles = (isNarrow: boolean) => {
   const page: CSSProperties = isNarrow
     ? { ...styles.page, padding: "32px 14px 48px" }
@@ -38,5 +39,6 @@ export const getAuthLayoutStyles = (isNarrow: boolean) => {
         maxWidth: "260px",
       };
 
+  // Splitting narrow/desktop buttons keeps touch targets comfy on mobile and aligns CTAs on desktop.
   return { page, card, hero, actions, buttonNarrow, buttonDesktop };
 };

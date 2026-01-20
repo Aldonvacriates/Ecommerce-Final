@@ -13,6 +13,7 @@ import Navbar from "./commponents/Navbar/Navbar";
 
 
 function App() {
+  // Bootstrapping React Query + my product/auth contexts before mounting the router.
   const client = new QueryClient();
   return (
     <QueryClientProvider client={client}>
