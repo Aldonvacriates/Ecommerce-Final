@@ -2,6 +2,9 @@
 
 Modern ecommerce UI built with React, TypeScript, and Vite. Products come from Fake Store API; authentication uses Firebase email/password with Login, Register, Profile, and Logout flows.
 
+## Live Demo
+- https://ecommerce-final-henna.vercel.app/
+
 ## Features
 - Product catalog from `https://fakestoreapi.com` with category filter, responsive cards, and cart page.
 - Firebase Auth: register, login, logout, profile overview, display-name update, account deletion with confirmation modals and friendly error messaging.
