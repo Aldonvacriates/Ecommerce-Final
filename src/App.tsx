@@ -11,7 +11,7 @@ import Cart from "./pages/Cart";
 import Logout from "./pages/Logout";
 import Navbar from "./commponents/Navbar/Navbar";
 
-
+// Root composition: data fetching, shared state providers, and the router.
 function App() {
   // Bootstrapping React Query + my product/auth contexts before mounting the router.
   const client = new QueryClient();

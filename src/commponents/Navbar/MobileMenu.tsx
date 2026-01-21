@@ -19,6 +19,7 @@ const focusableSelector =
   'a[href]:not([tabindex="-1"]), button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])';
 
 const MobileMenu = ({ isOpen, menuRef, mainLinks, actionLinks, onNavigate, slideDirection = "top" }: MobileMenuProps) => {
+  // Animated overlay used on small screens; slides from the top by default.
   // Animate from top or side based on breakpoint; keeps a single overlay component.
   const slideVariants =
     slideDirection === "right"

@@ -11,6 +11,7 @@ const Home: React.FC = () => {
   const navigate = useNavigate();
   const { products, selectedCategory, dispatch } = useProductContext();
 
+  // Fetch the full catalog once; the reducer owns the canonical list.
   const {
     data: productsData,
     isLoading,
@@ -20,15 +21,18 @@ const Home: React.FC = () => {
   });
 
   useEffect(() => {
+    // Sync remote products into context when the query succeeds.
     if (productsData)
       dispatch({ type: "SET_PRODUCTS", payload: productsData.data });
   }, [dispatch, productsData]);
 
+  // Grab categories separately to populate the filter dropdown.
   const { data: categories } = useQuery({
     queryKey: ["categories"],
     queryFn: fetchCategories,
   });
 
+  // Filter products on the client so switching categories feels instant.
   const getFilteredProducts = () => {
     if (selectedCategory) {
       return products.filter(

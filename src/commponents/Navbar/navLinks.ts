@@ -10,6 +10,7 @@ export type NavLinkItem = {
   variant?: NavVariant;
 };
 
+// Central config for navbar links so both desktop and mobile share the same source of truth.
 export const navLinks: NavLinkItem[] = [
   { label: "Home", path: "/", section: "main", audience: "any", variant: "link" },
   { label: "Cart", path: "/cart", section: "main", audience: "any", variant: "link" },

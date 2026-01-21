@@ -15,6 +15,7 @@ type FormState = {
 type FocusKey = keyof FormState | null;
 
 const Register = () => {
+  // Full registration experience with simple client-side validation layered on top of Firebase Auth.
   const navigate = useNavigate();
   // Core form state + UI affordances for focus/hover/loading/error
   const [form, setForm] = useState<FormState>({

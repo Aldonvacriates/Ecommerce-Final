@@ -8,12 +8,14 @@ import { navLinks } from "./navLinks";
 import "./Navbar.css";
 
 const Navbar = () => {
+  // Responsive nav that swaps between inline links and an animated mobile sheet.
   const { user } = useAuth();
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
   const toggleRef = useRef<HTMLButtonElement | null>(null);
 
+  // Hide or show certain links based on auth state.
   const visibleLinks = useMemo(
     () =>
       navLinks.filter((link) => {
@@ -34,6 +36,7 @@ const Navbar = () => {
     [visibleLinks]
   );
 
+  // Close the sheet when users click outside or hit Escape.
   useEffect(() => {
     if (!isOpen) return;
     const handlePointer = (event: MouseEvent | TouchEvent) => {
@@ -55,6 +58,7 @@ const Navbar = () => {
     };
   }, [isOpen]);
 
+  // Also close the menu on route change to avoid stale overlays.
   useEffect(() => {
     setIsOpen(false);
   }, [location.pathname]);

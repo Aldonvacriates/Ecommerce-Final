@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600&display=swap");
 
+/* Futuristic card styling to match the neon auth/nav system. */
 :root {
   --card-bg: rgba(13, 20, 36, 0.92);
   --card-border: rgba(255, 255, 255, 0.08);

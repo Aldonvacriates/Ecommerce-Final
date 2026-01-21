@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600&display=swap");
 
+/* Glassmorphism-inspired header styling that supports both desktop and mobile menus. */
 :root {
   --nav-panel: rgba(9, 14, 26, 0.9);
   --nav-text: #e7ecf7;

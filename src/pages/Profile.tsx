@@ -8,6 +8,7 @@ import { useMediaQuery } from "../hooks/useMediaQuery";
 import { getAuthLayoutStyles } from "../styles/auth-responsive";
 
 const Profile = () => {
+  // Profile dashboard lets users rename themselves or permanently delete their account.
   const navigate = useNavigate();
   const { user, setUser } = useAuth();
   const isNarrow = useMediaQuery("(max-width: 640px)");
@@ -26,6 +27,7 @@ const Profile = () => {
     if (!user && !deleteSuccessModalOpen) navigate("/login", { replace: true });
   }, [user, navigate, deleteSuccessModalOpen]);
 
+  // Convenience renderer for the small stats tiles.
   const statCard = (label: string, value: string) => (
     <div style={styles.featureCard}>
       <h3 style={styles.featureTitle}>{label}</h3>

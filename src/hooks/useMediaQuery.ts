@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+// Lightweight media query hook with SSR guards and initial sync.
 const getInitialMatch = (query: string) => {
   if (typeof window === "undefined" || typeof window.matchMedia === "undefined") return false;
   return window.matchMedia(query).matches;

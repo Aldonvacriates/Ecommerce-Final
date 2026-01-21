@@ -1,3 +1,4 @@
+// API response shapes pulled from Fake Store API.
 export interface Product {
     id: number;
     title: string;

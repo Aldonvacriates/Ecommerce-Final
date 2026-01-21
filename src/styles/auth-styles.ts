@@ -1,5 +1,6 @@
 import type { CSSProperties } from "react";
 
+// Shared design tokens for the auth, profile, and session-related screens.
 type AuthStyleMap = Record<string, CSSProperties>;
 
 // Leaned into a glassy neon palette so the auth screens feel premium without extra assets.

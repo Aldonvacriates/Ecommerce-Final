@@ -17,5 +17,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+// Exported singletons keep auth/firestore consistent across the app.
 export const auth = getAuth(app);
 export const db = getFirestore(app);

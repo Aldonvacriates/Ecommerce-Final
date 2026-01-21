@@ -3,6 +3,8 @@ import type { ReactNode } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import type { User } from "firebase/auth";
 import { auth } from "../lib/firebase/firebase";
+
+// Auth context mirrors Firebase's current user so the UI can react globally.
 interface AuthContextType {
   user: User | null;
   setUser: (user: User | null) => void;
@@ -17,6 +19,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
+    // Subscribe to Firebase auth changes once and hydrate context accordingly.
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
@@ -28,11 +31,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, setUser }}> 
+    <AuthContext.Provider value={{ user, setUser }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
 export const useAuth = () => useContext(AuthContext);
-

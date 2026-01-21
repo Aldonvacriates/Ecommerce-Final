@@ -16,6 +16,7 @@ type FormState = {
 type FocusKey = keyof FormState | null;
 
 const Login = () => {
+  // Authentication screen that hydrates from context and routes authenticated users away.
   const navigate = useNavigate();
   const { user, setUser } = useAuth();
   const isNarrow = useMediaQuery("(max-width: 640px)");

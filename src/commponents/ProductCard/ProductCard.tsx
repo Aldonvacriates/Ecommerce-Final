@@ -2,6 +2,7 @@ import type { Product } from "../../types/types";
 import { Rating } from "@smastrom/react-rating";
 import "./ProductCard.css";
 
+// Presentation-only product tile with truncated copy and rating stars.
 const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
   const truncatedTitle =
     product.title.length > 70 ? `${product.title.slice(0, 67)}...` : product.title;

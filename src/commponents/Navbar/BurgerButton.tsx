@@ -6,6 +6,7 @@ type BurgerButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   isOpen: boolean;
 };
 
+// Hamburger toggle used to open/close the mobile menu.
 const BurgerButton = forwardRef(function BurgerButton(
   { isOpen, ...rest }: BurgerButtonProps,
   ref: ForwardedRef<HTMLButtonElement>

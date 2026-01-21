@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600&display=swap");
 
+/* Layout + hero styling for the product grid landing page. */
 :root {
   --home-bg: #050a16;
   --home-surface: rgba(10, 16, 30, 0.82);

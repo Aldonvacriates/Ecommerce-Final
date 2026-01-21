@@ -7,6 +7,7 @@ import { getAuthLayoutStyles } from "../styles/auth-responsive";
 import styles from "../styles/auth-styles";
 
 const Logout = () => {
+  // Guided sign-out page with a secondary CTA to stay signed in.
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
