@@ -2,63 +2,57 @@ name: Ecommerce Final Project CI/CD
 
 on:
   push:
-    branches:
-      - main # Trigger the workflow on pushes to the main branch
-      - master
+    branches: [main, master]
   pull_request:
-    branches:
-      - main # Trigger the workflow on pull requests targeting the main branch
-      - master
+    branches: [main, master]
 
 jobs:
-  build: #Continuous Integration Job
-    runs-on: ubuntu-latest  
-
+  build:
+    name: Install, Test, and Build
+    runs-on: ubuntu-latest
     steps:
-        # step1: Checkout the code
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-# step2: Set up Node.js environment
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '20' # Specify the Node.js version
+          node-version: '20.19.0'
+          cache: 'npm'
 
-# step3: Install dependencies, run tests, and build the project
       - name: Install dependencies
-        run: npm install
-        
-# step4: Run tests and build the project
+        run: npm ci
+
       - name: Run tests
         run: npm test
 
-# step5: Build and deploy the project
       - name: Build project
         run: npm run build
-     deploy:
-        runs-on: ubuntu-latest  
-        needs: build # Only run this job if the build job succeeds
+
+  deploy:
+    name: Deploy to Vercel
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
     steps:
-        # step1: Checkout the code
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-# step2: Set up Node.js environment
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '20' # Specify the Node.js version
+          node-version: '20.19.0'
+          cache: 'npm'
 
-# step3: Install dependencies, run tests, and build the project
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
-# step4: Deploy to Vercel o another hosting servicer cloud provider
-        - name: Deploy to Vercel
-        run: |
-            npm install -g vercel
-        vercel --prod --yes --token ${{ secrets.VERCEL_TOKEN_1 }}
-
-      - name: Build React app
+      - name: Build project
         run: npm run build
+
+      - name: Deploy to Vercel
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN_1 }}
+        run: |
+          npm install -g vercel
+          vercel --prod --yes --token "$VERCEL_TOKEN"
