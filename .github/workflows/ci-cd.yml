@@ -1,0 +1,31 @@
+name: Ecommerce Final Project CI/CD
+
+on:
+  push:
+    branches:
+      - main # Trigger the workflow on pushes to the main branch
+  pull_request:
+    branches:
+      - main # Trigger the workflow on pull requests targeting the main branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20' # Specify the Node.js version
+# step3: Install dependencies, run tests, and build the project
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build React app
+        run: npm run build
