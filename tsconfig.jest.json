@@ -8,5 +8,6 @@
     "verbatimModuleSyntax": false,
     "types": ["jest", "node"]
   },
+  "exclude": ["node_modules"],
   "include": ["src/**/*.ts", "src/**/*.tsx"]
 }
