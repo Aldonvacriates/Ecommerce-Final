@@ -1,4 +1,4 @@
-# Ecommerce Front-End (React + Vite + Firebase)
+# Eecommerce Front-End (React + Vite + Firebase)
 
 Modern ecommerce UI built with React, TypeScript, and Vite. Products come from Fake Store API; authentication uses Firebase email/password with Login, Register, Profile, and Logout flows.
 
