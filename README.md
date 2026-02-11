@@ -47,7 +47,7 @@ Update `src/lib/firebase/firebase.ts` with my Firebase project values. For produ
 - `src/lib/firebase/firebase.ts` - Firebase app/auth setup
 - `src/styles/auth-styles.ts`, `src/pages/Home/Home.css` - UI styling
 
-## Project Structure (excerpt)
+## Project Structure
 ```
 src/
   api/
