@@ -32,7 +32,7 @@ Open the URL Vite prints (default http://localhost:5173).
 - `npm test` - run Jest tests (ts-jest + Testing Library)
 
 ## Firebase Configuration
-Update `src/lib/firebase/firebase.ts` with your Firebase project values. For production, move secrets to environment variables and avoid committing them.
+Update `src/lib/firebase/firebase.ts` with my Firebase project values. For production, moving secrets to environment variables and avoid committing them.
 
 ## CI/CD
 - GitHub Actions workflow `ci-cd.yml` runs install/test/build on pushes/PRs to `main`/`master`.
