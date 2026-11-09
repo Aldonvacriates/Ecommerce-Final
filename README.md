@@ -1,8 +1,8 @@
 # Ecommerce Final: React + Firebase Storefront
 
-A React 19 + TypeScript storefront front end that browses the Fake Store API catalog and handles the full Firebase email/password account lifecycle, with Jest tests and a GitHub Actions pipeline that deploys to Vercel.
+A React 19 + TypeScript storefront front end that browses the Fake Store API catalog and covers the Firebase email/password account basics (register, login, rename, delete, logout), with a Jest setup and a GitHub Actions pipeline that deploys to Vercel.
 
-Final project for the Coding Temple full-stack program, built December 2025 to February 2026.
+A Coding Temple project, built December 2025 to February 2026.
 
 **Live demo:** https://ecommerce-final-henna.vercel.app
 
@@ -24,7 +24,7 @@ Final project for the Coding Temple full-stack program, built December 2025 to F
 - React 19, TypeScript, Vite 7
 - React Router v7, TanStack React Query v5, Axios
 - Firebase JS SDK v12 (Authentication)
-- Bootstrap 5 / React Bootstrap, Framer Motion, `@smastrom/react-rating`
+- Bootstrap 5 (CSS), Framer Motion, `@smastrom/react-rating`
 - Jest 30, ts-jest, React Testing Library, jsdom
 - ESLint, Prettier
 - GitHub Actions, Vercel
