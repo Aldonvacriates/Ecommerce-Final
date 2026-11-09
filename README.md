@@ -2,7 +2,7 @@
 
 A React 19 + TypeScript storefront front end that browses the Fake Store API catalog and covers the Firebase email/password account basics (register, login, rename, delete, logout), with a Jest setup and a GitHub Actions pipeline that deploys to Vercel.
 
-A Coding Temple project, built December 2025 to February 2026.
+Built December 2025 to February 2026.
 
 **Live demo:** https://ecommerce-final-henna.vercel.app
 
@@ -14,7 +14,7 @@ A Coding Temple project, built December 2025 to February 2026.
   - Register with name, email and password; the name is saved as the Firebase display name.
   - Login with friendly messages for common Firebase error codes (unknown account, wrong password, invalid email, too many attempts).
   - Profile page that redirects guests to `/login`, shows account details and lets the user change their display name.
-  - Account deletion behind a confirmation modal. If Firebase rejects it with `auth/requires-recent-login`, the page asks the user to sign in again before retrying.
+  - Account deletion behind a confirmation modal. If Firebase rejects it with `auth/requires-recent-login`, the page shows a message asking the user to sign in again (there is no in-app re-authentication step yet).
   - Logout page with a "Stay logged in" option.
 - **Auth-aware navigation**: one link config drives both the desktop navbar and an animated mobile menu (Framer Motion) that keeps keyboard focus inside while open. Guests see Login/Register; signed-in users see Profile/Logout.
 - **Cart**: the `/cart` route and nav link exist, but the page is still a placeholder. There is no add-to-cart or checkout flow yet.
@@ -50,7 +50,7 @@ npm ci
 npm run dev
 ```
 
-Open the URL Vite prints (default http://localhost:5173).
+Open the URL Vite prints (default `http://localhost:5173`).
 
 ### Configuration
 
